@@ -1,8 +1,8 @@
 ﻿using cShipment.Interfaces;
 using cShipment.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic; // Added for ListCustomers return type
-using Microsoft.AspNetCore.Http; // Added for StatusCodes
+using System.Collections.Generic; 
+using Microsoft.AspNetCore.Http; 
 
 namespace cShipment.Controllers
 {
@@ -33,7 +33,7 @@ namespace cShipment.Controllers
         [HttpGet("List")] // Route: GET /api/Customer/List
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult<IEnumerable<CustomerDto>> ListCustomers() // Changed return type to ActionResult
+        public ActionResult<IEnumerable<CustomerDto>> ListCustomers() 
         {
             try
             {
