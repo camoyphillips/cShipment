@@ -1,0 +1,134 @@
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #ffff00; 
+    color: #333;
+}
+
+/* Header & Navbar */
+header {
+    background-color: #d32f2f; /* Red */
+    color: white;
+    padding: 1rem 0;
+}
+
+.navbar {
+    background-color: #d32f2f;
+}
+
+    .navbar .nav-link {
+        color: #fff;
+        font-weight: 500;
+    }
+
+        .navbar .nav-link:hover {
+            color: #ffcc80; 
+        }
+
+/* Main Content */
+main {
+    flex: 1; 
+    padding: 2rem 1rem;
+    background-color: #ffffff;
+    max-width: 1200px;
+    margin: 0 auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Footer */
+@media {
+    background-color: #ffff00;
+    color: #333;
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.9rem;
+    border-top: 1px solid #ddd;
+}
+
+/* Buttons */
+button, .btn {
+    background-color: #d32f2f;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+    button:hover, .btn:hover {
+        background-color: #b71c1c;
+    }
+
+    .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+        box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #d32f2f;
+    }
+
+/* Forms */
+form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="date"],
+input[type="password"],
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0 20px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+input[type="submit"] {
+    background-color: #d32f2f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 4px;
+}
+
+    input[type="submit"]:hover {
+        background-color: #b71c1c;
+    }
+
+/* Responsive Layout */
+@media screen and (max-width: 768px) {
+    .navbar-nav {
+        text-align: center;
+    }
+
+        .navbar-nav .nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+    main {
+        padding: 1rem;
+    }
+
+    header h1 {
+        font-size: 1.75rem;
+    }
+
+    footer {
+        padding: 0.75rem;
+        font-size: 0.8rem;
+    }
+}
