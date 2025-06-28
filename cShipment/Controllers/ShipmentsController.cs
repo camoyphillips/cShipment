@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using cShipment.Data;
 using cShipment.Models;
-using Microsoft.AspNetCore.Http; 
+using Microsoft.AspNetCore.Http;
 
 namespace cShipment.Controllers
 {
@@ -34,18 +34,29 @@ namespace cShipment.Controllers
         /// <returns>A list of Shipment objects.</returns>
         /// <response code="200">Returns a list of shipments.</response>
         /// <response code="500">If an unhandled error occurs on the server.</response>
-        [HttpGet("List")] // Route: GET /api/Shipments/List
+        [HttpGet("list")] // Route: GET /api/Shipments/list (changed to lowercase 'list' for consistency with your provided code)
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<IEnumerable<Shipment>>> GetShipments()
+        public async Task<ActionResult<IEnumerable<Shipment>>> GetShipments() 
         {
             try
             {
-                return Ok(await _context.Shipments
-                    .Include(s => s.Truck)
-                    .Include(s => s.DriverShipments)
-                        .ThenInclude(ds => ds.Driver)
-                    .ToListAsync());
+                var shipments = await _context.Shipments
+                    .Include(s => s.Truck) // Include the Truck navigation property
+                                           // .Include(s => s.DriverShipments) 
+                                           // .ThenInclude(ds => ds.Driver) 
+                    .Select(s => new Shipment
+                    {
+                        ShipmentId = s.ShipmentId,
+                        Origin = s.Origin,
+                        Destination = s.Destination,
+                        Distance = s.Distance,
+                        Status = s.Status,
+                        TruckId = s.TruckId,
+                    })
+                    .ToListAsync();
+
+                return Ok(shipments);
             }
             catch (System.Exception ex)
             {

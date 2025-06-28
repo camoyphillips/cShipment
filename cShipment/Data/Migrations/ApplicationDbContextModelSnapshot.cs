@@ -17,31 +17,10 @@ namespace cShipment.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.14")
+                .HasAnnotation("ProductVersion", "8.0.15")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("Driver", b =>
-                {
-                    b.Property<int>("DriverId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DriverId"));
-
-                    b.Property<string>("LicenseNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("DriverId");
-
-                    b.ToTable("Drivers");
-                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -188,10 +167,12 @@ namespace cShipment.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -228,10 +209,12 @@ namespace cShipment.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -264,23 +247,60 @@ namespace cShipment.Data.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("cShipment.Models.DriverShipment", b =>
+            modelBuilder.Entity("cShipment.Models.Driver", b =>
                 {
                     b.Property<int>("DriverId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("ShipmentId")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DriverId"));
+
+                    b.Property<string>("ContactNumber")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("LicenseNumber")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("DriverId");
+
+                    b.ToTable("Drivers");
+                });
+
+            modelBuilder.Entity("cShipment.Models.DriverShipment", b =>
+                {
+                    b.Property<int>("DriverShipmentId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DriverShipmentId"));
 
                     b.Property<DateTime>("AssignedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Role")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("DriverId")
+                        .HasColumnType("int");
 
-                    b.HasKey("DriverId", "ShipmentId");
+                    b.Property<string>("Role")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("ShipmentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("DriverShipmentId");
 
                     b.HasIndex("ShipmentId");
+
+                    b.HasIndex("DriverId", "ShipmentId")
+                        .IsUnique();
 
                     b.ToTable("DriverShipments");
                 });
@@ -295,18 +315,21 @@ namespace cShipment.Data.Migrations
 
                     b.Property<string>("Destination")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
-                    b.Property<double>("Distance")
-                        .HasColumnType("float");
+                    b.Property<int>("Distance")
+                        .HasColumnType("int");
 
                     b.Property<string>("Origin")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Status")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("TruckId")
                         .HasColumnType("int");
@@ -332,13 +355,15 @@ namespace cShipment.Data.Migrations
                     b.Property<DateTime>("LastMaintenanceDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<double>("Mileage")
-                        .HasColumnType("float");
+                    b.Property<int>("Mileage")
+                        .HasColumnType("int");
 
                     b.Property<string>("Model")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TruckImagePath")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("TruckId");
 
@@ -400,16 +425,16 @@ namespace cShipment.Data.Migrations
 
             modelBuilder.Entity("cShipment.Models.DriverShipment", b =>
                 {
-                    b.HasOne("Driver", "Driver")
+                    b.HasOne("cShipment.Models.Driver", "Driver")
                         .WithMany("DriverShipments")
                         .HasForeignKey("DriverId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("cShipment.Models.Shipment", "Shipment")
                         .WithMany("DriverShipments")
                         .HasForeignKey("ShipmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Driver");
@@ -430,7 +455,7 @@ namespace cShipment.Data.Migrations
 
             modelBuilder.Entity("cShipment.Models.Truck", b =>
                 {
-                    b.HasOne("Driver", "AssignedDriver")
+                    b.HasOne("cShipment.Models.Driver", "AssignedDriver")
                         .WithMany()
                         .HasForeignKey("AssignedDriverId")
                         .OnDelete(DeleteBehavior.SetNull);
@@ -438,7 +463,7 @@ namespace cShipment.Data.Migrations
                     b.Navigation("AssignedDriver");
                 });
 
-            modelBuilder.Entity("Driver", b =>
+            modelBuilder.Entity("cShipment.Models.Driver", b =>
                 {
                     b.Navigation("DriverShipments");
                 });

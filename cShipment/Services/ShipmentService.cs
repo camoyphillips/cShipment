@@ -17,29 +17,39 @@ namespace cShipment.Services
 
         public async Task<IEnumerable<ShipmentDto>> ListShipments()
         {
-            var shipments = await _context.Shipments.Include(s => s.Truck).ToListAsync();
+            // Eager load the Truck to get its Model for the DTO
+            var shipments = await _context.Shipments
+                                          .Include(s => s.Truck)
+                                          .ToListAsync();
+
             return shipments.Select(s => new ShipmentDto
             {
                 ShipmentId = s.ShipmentId,
                 Origin = s.Origin,
                 Destination = s.Destination,
-                Distance = s.Distance,
+                Distance = s.Distance, 
                 Status = s.Status,
-                TruckId = s.TruckId
+                TruckId = s.TruckId,
+                TruckModel = s.Truck != null ? s.Truck.Model : null 
             });
         }
 
         public async Task<ShipmentDto?> FindShipment(int id)
         {
-            var shipment = await _context.Shipments.FindAsync(id);
+            // Include Truck if you need its model when finding a single shipment
+            var shipment = await _context.Shipments
+                                         .Include(s => s.Truck)
+                                         .FirstOrDefaultAsync(s => s.ShipmentId == id);
+
             return shipment == null ? null : new ShipmentDto
             {
                 ShipmentId = shipment.ShipmentId,
                 Origin = shipment.Origin,
                 Destination = shipment.Destination,
-                Distance = shipment.Distance,
+                Distance = shipment.Distance, 
                 Status = shipment.Status,
-                TruckId = shipment.TruckId
+                TruckId = shipment.TruckId,
+                TruckModel = shipment.Truck != null ? shipment.Truck.Model : null 
             };
         }
 
@@ -72,7 +82,6 @@ namespace cShipment.Services
             shipment.Status = shipmentDto.Status;
             shipment.TruckId = shipmentDto.TruckId;
 
-            _context.Entry(shipment).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
             return new ServiceResponse { Status = ServiceResponse.ServiceStatus.Updated };
@@ -93,6 +102,8 @@ namespace cShipment.Services
         public async Task<IEnumerable<ShipmentDto>> ListShipmentsForDriver(int driverId)
         {
             return await _context.DriverShipments
+                .Include(ds => ds.Shipment) 
+                .Include(ds => ds.Shipment.Truck) 
                 .Where(ds => ds.DriverId == driverId)
                 .Select(ds => new ShipmentDto
                 {
@@ -101,7 +112,8 @@ namespace cShipment.Services
                     Destination = ds.Shipment.Destination,
                     Distance = ds.Shipment.Distance,
                     Status = ds.Shipment.Status,
-                    TruckId = ds.Shipment.TruckId
+                    TruckId = ds.Shipment.TruckId,
+                    TruckModel = ds.Shipment.Truck != null ? ds.Shipment.Truck.Model : null 
                 })
                 .ToListAsync();
         }
@@ -109,6 +121,7 @@ namespace cShipment.Services
         public async Task<IEnumerable<ShipmentDto>> ListShipmentsForTruck(int truckId)
         {
             return await _context.Shipments
+                .Include(s => s.Truck) 
                 .Where(s => s.TruckId == truckId)
                 .Select(s => new ShipmentDto
                 {
@@ -117,7 +130,8 @@ namespace cShipment.Services
                     Destination = s.Destination,
                     Distance = s.Distance,
                     Status = s.Status,
-                    TruckId = s.TruckId
+                    TruckId = s.TruckId,
+                    TruckModel = s.Truck != null ? s.Truck.Model : null 
                 }).ToListAsync();
         }
     }

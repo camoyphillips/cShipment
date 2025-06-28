@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using cShipment.Models;
-using Microsoft.AspNetCore.Authorization; 
+using Microsoft.AspNetCore.Authorization;
 
 namespace cShipment.Controllers
 {
@@ -31,12 +31,10 @@ namespace cShipment.Controllers
             return View();
         }
 
-
         /// <summary>
         /// Displays the privacy policy page.
         /// </summary>
         /// <returns>The Privacy view.</returns>
-
         public IActionResult Privacy()
         {
             return View();

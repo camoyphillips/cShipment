@@ -1,4 +1,4 @@
-/* Reset & Base Styles */
+
 * {
     margin: 0;
     padding: 0;
@@ -7,80 +7,182 @@
 
 html, body {
     height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* Corrected Background: Deeper, more consistent gradient for better contrast with light text */
+    background: linear-gradient(to bottom right, #3A0000, #6A0000, #3A0000); /* Darker Red gradient for guaranteed contrast */
+    color: #FFFFFF; 
 }
 
 body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #ffff00; 
-    color: #333;
 }
 
-/* Header & Navbar */
+/* --- Global Typography & Base Elements --- */
+h1, h2, h3, h4, h5, h6 {
+    color: #FFEB3B; /* Bright yellow for headings */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6); /* Stronger shadow for readability on dark background */
+}
+
+p, div, span, li { /* Ensuring general text has good contrast */
+    color: #FFFFFF; /* White text against darker backgrounds */
+}
+
+a {
+    color: #FFFF00; /* Bright yellow for links on dark background */
+    text-decoration: underline; /* Always underline links for clear indication */
+    transition: color 0.3s ease;
+    font-weight: 600; /* Make links slightly bolder */
+}
+
+    a:hover {
+        color: #FF0000; /* Bright red on hover for links - maintains good contrast on dark backgrounds */
+        text-decoration: none;
+    }
+
+/* --- Header & Navbar --- */
 header {
-    background-color: #d32f2f; /* Red */
-    color: white;
+    background: #4A0000; /* Deep red for header */
     padding: 1rem 0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.6); /* Pronounced shadow */
+    border-bottom: 4px solid #FFFF00; /* Bold yellow border */
 }
 
 .navbar {
-    background-color: #d32f2f;
+    background-color: transparent;
 }
 
     .navbar .nav-link {
-        color: #fff;
-        font-weight: 500;
+        color: #FFFFFF; /* White text for main nav items - good contrast on deep red header */
+        font-weight: 700;
+        letter-spacing: 1.2px; /* Increased letter spacing */
+        transition: all 0.3s ease;
+        padding: 0.6rem 1.2rem; /* Adjusted padding */
+        border-radius: 6px; /* More rounding */
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Subtle text shadow for depth */
     }
 
         .navbar .nav-link:hover {
-            color: #ffcc80; 
+            color: #4A0000; /* Deep red text on hover - excellent contrast on bright yellow background */
+            background-color: #FFFF00; /* Bright yellow background on hover */
+            transform: translateY(-3px); /* More pronounced lift */
+            box-shadow: 0 0 10px rgba(255, 255, 0, 0.7); /* Strong yellow glow */
         }
 
-/* Main Content */
+.navbar-brand {
+    color: #FFFF00 !important; /* Brand name in bright yellow - good contrast on deep red header */
+    font-weight: 900;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6); /* Stronger shadow for brand */
+    letter-spacing: 2.5px;
+    font-size: 1.8rem; /* Larger brand name */
+}
+
+/* --- Main Content Area --- */
 main {
-    flex: 1; 
-    padding: 2rem 1rem;
-    background-color: #ffffff;
-    max-width: 1200px;
-    margin: 0 auto;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    flex: 1;
+    padding: 3rem; /* Generous padding */
+    /* Corrected: Use a darker solid color for main background for guaranteed contrast,
+       then apply blur. The main element itself will provide the primary background for content. */
+    background-color: rgba(0, 0, 0, 0.5); /* Darker, more opaque background for content */
+    backdrop-filter: blur(12px); /* Stronger blur for glass-like effect */
+    border-radius: 20px; /* More rounded corners */
+    max-width: 1400px; /* Wider main content area */
+    margin: 2rem auto; /* Increased margin */
+    box-shadow: 0 0 25px rgba(255, 0, 0, 0.5), 0 0 35px rgba(255, 255, 0, 0.4); /* Enhanced dual glow */
+    border: 2px solid rgba(255, 255, 0, 0.4); /* More prominent yellow inner border */
 }
 
-/* Footer */
-@media {
-    background-color: #ffff00;
-    color: #333;
+/* --- Footer --- */
+footer {
+    background-color: #4A0000; /* Deep red footer */
+    color: #FFFFFF; /* White text for footer - good contrast */
     text-align: center;
-    padding: 1rem;
-    font-size: 0.9rem;
-    border-top: 1px solid #ddd;
-}
-
-/* Buttons */
-button, .btn {
-    background-color: #d32f2f;
-    border: none;
-    color: white;
-    padding: 10px 20px;
+    padding: 1.5rem; /* More padding */
     font-size: 1rem;
-    border-radius: 4px;
-    cursor: pointer;
+    border-top: 4px solid #FFFF00; /* Bold yellow border */
+    width: 100%;
+    margin-top: auto; /* Ensures footer sticks to the bottom */
 }
 
-    button:hover, .btn:hover {
-        background-color: #b71c1c;
+/* --- Buttons --- */
+button, .btn, input[type="submit"] {
+    background-color: #FFFF00; /* Bright yellow for primary buttons */
+    border: 3px solid #FF0000; /* Bold red border */
+    color: #4A0000; /* Deep red text for strong contrast on yellow background (WCAG AA compliant) */
+    padding: 14px 32px; /* More generous padding */
+    font-size: 1.2rem; /* Larger font */
+    font-weight: 800; /* Extra bold text */
+    border-radius: 10px; /* Heavily rounded corners */
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.4); /* Shadow for lift */
+}
+
+    button:hover, .btn:hover, input[type="submit"]:hover {
+        background-color: #FF0000; /* Bright red background on hover */
+        color: #FFFF00; /* Bright yellow text on hover - strong contrast on red background (WCAG AA compliant) */
+        border-color: #FFFF00; /* Yellow border on hover */
+        box-shadow: 0 0 20px rgba(255, 255, 0, 0.8); /* Intense yellow glow on hover */
+        transform: translateY(-5px); /* Stronger lift effect */
     }
 
-    .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-        box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #d32f2f;
+/* Specific button styles for Bootstrap's default classes if used */
+.btn-primary {
+    background-color: #FF0000; /* Red primary button */
+    color: #FFFF00; /* Yellow text - good contrast */
+    border-color: #FFFF00;
+}
+
+    .btn-primary:hover {
+        background-color: #FFFF00; /* Yellow hover */
+        color: #4A0000; /* Deep red text - good contrast */
+        border-color: #FF0000;
     }
 
-/* Forms */
+.btn-secondary { /* Example for a "Back" button */
+    background-color: transparent; /* Remains transparent to let main content background show */
+    color: #FFFF00; /* Yellow text for contrast - good on dark backgrounds */
+    border: 2px solid #FFFF00; /* Yellow border */
+}
+
+    .btn-secondary:hover {
+        background-color: #FFFF00; /* Yellow hover */
+        color: #4A0000; /* Deep red text on hover - good contrast */
+        border-color: #4A0000;
+    }
+
+.btn-danger { /* For Delete buttons */
+    background-color: #FF0000; /* Red background */
+    color: #FFFF00; /* Yellow text - good contrast */
+    border-color: #FFFF00;
+}
+
+    .btn-danger:hover {
+        background-color: #FFFF00; /* Yellow hover */
+        color: #4A0000; /* Deep red text on hover - good contrast */
+        border-color: #FF0000;
+    }
+
+/* --- Forms --- */
 form {
-    max-width: 600px;
+    max-width: 800px; /* Even wider forms */
     margin: 0 auto;
+    padding: 2.5rem; /* More padding */
+    background-color: rgba(0, 0, 0, 0.6); /* Darker translucent background for forms for better contrast */
+    border-radius: 15px;
+    border: 2px solid rgba(255, 0, 0, 0.3); /* More visible red border */
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+}
+
+label {
+    color: #FFFF00; /* Labels in bright yellow for high contrast on dark form background */
+    font-weight: 700; /* Bolder labels */
+    margin-bottom: 0.8rem;
+    display: block;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3); /* Subtle shadow for readability */
 }
 
 input[type="text"],
@@ -90,45 +192,148 @@ input[type="password"],
 textarea,
 select {
     width: 100%;
-    padding: 10px;
-    margin: 10px 0 20px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    padding: 14px; /* Larger padding for inputs */
+    margin-bottom: 1.2rem; /* Consistent spacing */
+    border: 3px solid #FF0000; /* Bold red border for inputs */
+    background-color: #FFFFAA; /* Slightly darker yellow/cream for better contrast with text */
+    color: #111111; /* Very dark grey/black text for input values - Excellent contrast */
+    border-radius: 8px;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2); /* Stronger inner shadow */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-input[type="submit"] {
-    background-color: #d32f2f;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 1rem;
-    border-radius: 4px;
-}
-
-    input[type="submit"]:hover {
-        background-color: #b71c1c;
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="date"]:focus,
+    input[type="password"]:focus,
+    textarea:focus,
+    select:focus {
+        border-color: #FFFF00; /* Yellow border on focus */
+        box-shadow: 0 0 10px rgba(255, 255, 0, 0.8); /* Intense yellow glow on focus */
+        outline: none;
     }
 
-/* Responsive Layout */
+/* Validation Feedback (Bootstrap classes) */
+.form-control.is-invalid {
+    border-color: #FF0000 !important; /* Red border for invalid inputs */
+}
+
+.invalid-feedback {
+    color: #FFEB3B !important; /* Bright yellow for error messages - ensures contrast */
+    background-color: rgba(255, 0, 0, 0.2); /* Subtle red background for visibility */
+    padding: .25rem .5rem;
+    border-radius: .25rem;
+    margin-top: .25rem;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+}
+
+/* Static text from form-control-static */
+.form-control-static {
+    color: #E0E0E0; /* Slightly off-white for static text, good contrast on dark backgrounds */
+    font-weight: normal; /* Keep it subtle */
+}
+
+
+/* --- Cards --- */
+.card {
+    background-color: rgba(0, 0, 0, 0.6); /* Darker translucent background for cards for better contrast */
+    color: #FFFFFF; /* White text for card content */
+    border: 2px solid #FFFF00; /* Bold yellow border */
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.3), 0 0 25px rgba(255, 255, 0, 0.2);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .card:hover {
+        transform: translateY(-7px); /* More pronounced lift */
+        box-shadow: 0 7px 30px rgba(255, 0, 0, 0.5), 0 7px 35px rgba(255, 255, 0, 0.4);
+    }
+
+.card-title {
+    font-size: 1.5rem;
+    color: #FFFF00; /* Bright yellow for card titles - good contrast */
+    font-weight: 800;
+    margin-bottom: 1rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+.card-body {
+    padding: 2rem; /* More padding inside card body */
+}
+
+.card-text { /* Specific styling for card body text */
+    color: #F0F0F0; /* Slightly off-white for softer look than pure white, maintains contrast */
+}
+
+.card-img-top {
+    border-radius: 12px 12px 0 0;
+    max-height: 280px; /* Taller images */
+    object-fit: cover;
+    width: 100%;
+    border-bottom: 2px solid rgba(255, 0, 0, 0.2); /* More visible red line below image */
+}
+
+/* --- Utility/Alerts --- */
+.alert {
+    border-radius: 10px;
+    padding: 1.2rem 1.8rem;
+    margin-bottom: 2rem;
+    font-weight: 700;
+    text-align: center;
+    border: 2px solid; /* Add border for better definition */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+.alert-success {
+    background-color: #1A522A; /* Darker green background - sufficient contrast with light text */
+    color: #E6FFE6; /* Very light green text */
+    border-color: #4CAF50; /* Green border */
+}
+
+.alert-danger {
+    background-color: #8B0000; /* Darker red background - sufficient contrast with light text */
+    color: #FFEEEE; /* Very light red text */
+    border-color: #FF0000; /* Red border */
+}
+
+.alert-info {
+    background-color: #003366; /* Darker blue background - sufficient contrast with light text */
+    color: #E0FFFF; /* Very light blue text */
+    border-color: #007BFF; /* Blue border */
+}
+
+/* --- Responsive adjustments --- */
 @media screen and (max-width: 768px) {
+    main {
+        padding: 1.5rem;
+        margin: 1rem auto;
+    }
+
     .navbar-nav {
         text-align: center;
     }
 
         .navbar-nav .nav-item {
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
         }
 
-    main {
-        padding: 1rem;
-    }
-
     header h1 {
-        font-size: 1.75rem;
+        font-size: 1.8rem;
     }
 
     footer {
-        padding: 0.75rem;
-        font-size: 0.8rem;
+        padding: 1rem;
+        font-size: 0.85rem;
+    }
+
+    button, .btn, input[type="submit"] {
+        padding: 10px 24px;
+        font-size: 1.1rem;
+    }
+
+    form {
+        padding: 2rem;
     }
 }

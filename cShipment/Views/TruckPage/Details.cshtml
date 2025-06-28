@@ -1,0 +1,53 @@
+﻿@model cShipment.Models.Dtos.TruckDto
+
+@{
+    ViewData["Title"] = "Truck Details";
+}
+
+<h1>Truck Details</h1>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="d-flex justify-content-start mb-3">
+    <a href="/TruckPage/Edit/@Model.TruckId" class="btn btn-primary me-2">Edit</a>
+    <a href="/TruckPage/ConfirmDelete/@Model.TruckId" class="btn btn-danger me-2">Delete</a>
+    <a href="/TruckPage/List" class="btn btn-secondary">Back to List</a>
+</div>
+
+<hr />
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <h2 class="mb-3">Truck Information</h2>
+
+        <div class="mb-3">
+            <label class="form-label"><strong>Model:</strong></label>
+            <p class="form-control-static">@Model.Model</p>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label"><strong>Mileage:</strong></label>
+            <p class="form-control-static">@Model.Mileage.ToString("N0") km</p>
+        </div>
+
+    </div>
+
+    <div class="col-md-6">
+        <h2 class="mb-3">Truck Photo</h2>
+
+        @if (!string.IsNullOrEmpty(Model.TruckImagePath))
+        {
+            <img src="@Model.TruckImagePath" alt="Truck Image" class="img-fluid rounded shadow-sm border" />
+        }
+        else
+        {
+            <div class="text-muted">No truck image available.</div>
+        }
+    </div>
+</div>

@@ -1,0 +1,22 @@
+﻿<div class="container mt-3">
+    <div class="row g-3">
+        <div class="col-md-6">
+            <form method="get" action="/ShipmentPage/List/">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="query" placeholder="Search shipments by origin/destination/status" />
+                    <input type="date" class="form-control" name="date" />
+                    <button class="btn btn-outline-primary" type="submit">Search Shipments</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-md-6">
+            <form method="get" action="/TruckPage/New">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="query" placeholder="Search trucks by model/type" />
+                    <button class="btn btn-outline-secondary" type="submit">Search Trucks</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

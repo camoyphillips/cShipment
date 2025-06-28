@@ -1,3 +1,4 @@
+
 namespace cShipment.Models
 {
     /// <summary>
@@ -14,5 +15,7 @@ namespace cShipment.Models
         /// Flag that determines whether to show the RequestId.
         /// </summary>
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+
+        public List<string> Messages { get; internal set; }
     }
 }

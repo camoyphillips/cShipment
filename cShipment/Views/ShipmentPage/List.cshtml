@@ -1,0 +1,42 @@
+﻿@model IEnumerable<cShipment.Models.Dtos.ShipmentDto>
+
+@{
+    ViewData["Title"] = "Shipments";
+}
+
+<h1>All Shipments</h1>
+
+<a href="/ShipmentPage/New" class="btn btn-success mb-3">Create New Shipment</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Origin</th>
+            <th>Destination</th>
+            <th>Distance (km)</th>
+            <th>Status</th>
+            <th>Truck</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var shipment in Model)
+        {
+            <tr>
+                <td>@shipment.ShipmentId</td>
+                <td>@shipment.Origin</td>
+                <td>@shipment.Destination</td>
+                <td>@shipment.Distance</td>
+                <td>@shipment.Status</td>
+                <td>@shipment.TruckModel</td>
+                <td>
+                    <a href="/ShipmentPage/Details/@shipment.ShipmentId" class="btn btn-sm btn-info">Details</a>
+                    <a href="/ShipmentPage/Edit/@shipment.ShipmentId" class="btn btn-sm btn-warning">Edit</a>
+                    <a href="/ShipmentPage/ConfirmDelete/@shipment.ShipmentId" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

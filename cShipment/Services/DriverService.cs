@@ -66,5 +66,10 @@ namespace cShipment.Services
             await _context.SaveChangesAsync();
             return new ServiceResponse { Status = ServiceResponse.ServiceStatus.Deleted };
         }
+
+        public Task GetDriverForTruck(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -1,0 +1,22 @@
+﻿@model cShipment.Models.Dtos.DriverDto
+
+@{
+    ViewData["Title"] = "Add New Driver";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Add" method="post">
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="LicenseNumber"></label>
+        <input asp-for="LicenseNumber" class="form-control" />
+        <span asp-validation-for="LicenseNumber" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-success">Add Driver</button>
+    <a asp-action="List" class="btn btn-secondary">Cancel</a>
+</form>

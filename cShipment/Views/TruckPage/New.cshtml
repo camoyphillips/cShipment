@@ -1,0 +1,61 @@
+﻿@model cShipment.Models.Dtos.TruckDto
+
+@{
+    ViewData["Title"] = "Add New Truck";
+}
+
+<h1>Add New Truck</h1>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <ul class="mb-0">
+            @foreach (var modelState in ViewData.ModelState.Values)
+            {
+                @foreach (var error in modelState.Errors)
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            }
+        </ul>
+    </div>
+}
+
+<form method="POST" asp-action="Add" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+
+    <div class="mb-3">
+        <label asp-for="Model" class="form-label">Model:</label>
+        <input type="text" asp-for="Model" class="form-control" />
+        <span asp-validation-for="Model" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Mileage" class="form-label">Mileage:</label>
+        <input type="number" asp-for="Mileage" class="form-control" />
+        <span asp-validation-for="Mileage" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="LastMaintenanceDate" class="form-label">Last Maintenance Date:</label>
+        <input type="date" asp-for="LastMaintenanceDate" class="form-control" />
+        <span asp-validation-for="LastMaintenanceDate" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Truck Image:</label>
+        <input type="file" name="TruckPhoto" accept=".jpg,.jpeg,.png" class="form-control" />
+        <span class="text-muted small">Accepted formats: JPG, JPEG, PNG.</span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add Truck</button>
+    <a asp-action="List" class="btn btn-secondary">Back to List</a>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}ipts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

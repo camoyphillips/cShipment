@@ -1,0 +1,24 @@
+﻿@model IEnumerable<cShipment.Models.Dtos.TruckDto>
+
+
+<div class="d-flex justify-content-start mb-3">
+    <a href="/TruckPage/New/"  class="btn btn-primary me-2">New</a>
+    <a href="/TruckPage/List" class="btn btn-secondary">Back to List</a>
+</div>
+
+
+
+<div class="row">
+    @foreach (var truck in Model)
+    {
+        <div>
+            <a href="/TruckPage/Details/@truck.TruckId">
+                @if (truck.HasTruckImage)
+                {
+                    <img style="width:150px; height:auto;" src="@truck.TruckImagePath" />
+                }
+                <span>@truck.Model - Mileage: @truck.Mileage km</span>
+            </a>
+        </div>
+    }
+</div>

@@ -1,0 +1,49 @@
+﻿@model cShipment.Models.Dtos.ShipmentDto
+
+@{
+    ViewData["Title"] = "New Shipment";
+}
+
+<h1>New Shipment</h1>
+
+<form method="post" asp-action="Add" asp-controller="ShipmentPage">
+
+    <div class="mb-3">
+        <label asp-for="Origin" class="form-label"></label>
+        <input asp-for="Origin" class="form-control" />
+        <span asp-validation-for="Origin" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Destination" class="form-label"></label>
+        <input asp-for="Destination" class="form-control" />
+        <span asp-validation-for="Destination" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Distance" class="form-label"></label>
+        <input asp-for="Distance" class="form-control" />
+        <span asp-validation-for="Distance" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Status" class="form-label"></label>
+        <input asp-for="Status" class="form-control" />
+        <span asp-validation-for="Status" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="TruckId" class="form-label">Truck ID</label>
+        <input asp-for="TruckId" class="form-control" />
+        <span asp-validation-for="TruckId" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create Shipment</button>
+    <a href="/ShipmentPage/List" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

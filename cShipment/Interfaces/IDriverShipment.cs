@@ -12,5 +12,6 @@ namespace cShipment.Interfaces
         Task<IEnumerable<DriverDto>> ListDriversForShipment(int shipmentId);
 
         Task<IEnumerable<ShipmentDto>> ListShipmentsForDriver(int driverId);
+        Task ListDriverShipmentsForShipment(int id);
     }
 }

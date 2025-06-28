@@ -1,0 +1,28 @@
+﻿-- Inserte customers with auto-generated CustomerId
+INSERT INTO dbo.Customers (CustomerName, CustomerEmail)
+VALUES
+    ('Jack', 'jack@gmail.com'),
+    ('Sophia', 'sophia@example.com'),
+    ('Liam', 'liam@example.com'),
+    ('Olivia', 'olivia@example.com'),
+    ('Noah', 'noah@example.com'),
+    ('Emma', 'emma@example.com'),
+    ('Mason', 'mason@example.com'),
+    ('Ava', 'ava@example.com'),
+    ('Jacob', 'jacob@example.com'),
+    ('Isabella', 'isabella@example.com'),
+    ('William', 'william@example.com'),
+    ('Mia', 'mia@example.com'),
+    ('Ethan', 'ethan@example.com'),
+    ('Amelia', 'amelia@example.com'),
+    ('James', 'james@example.com'),
+    ('Harper', 'harper@example.com'),
+    ('Benjamin', 'benjamin@example.com'),
+    ('Evelyn', 'evelyn@example.com'),
+    ('Lucas', 'lucas@example.com'),
+    ('Abigail', 'abigail@example.com'),
+    ('Henry', 'henry@example.com'),
+    ('Ella', 'ella@example.com'),
+    ('Alexander', 'alexander@example.com'),
+    ('Scarlett', 'scarlett@example.com'),
+    ('Michael', 'michael@example.com');

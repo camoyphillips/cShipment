@@ -7,6 +7,7 @@ namespace cShipment.Data
 {
     /// <summary>
     /// EF Core database context for cShipment logistics operations.
+    /// Handles entity relationships and schema configurations.
     /// </summary>
     public class ApplicationDbContext : IdentityDbContext
     {
@@ -22,35 +23,51 @@ namespace cShipment.Data
         public DbSet<DriverShipment> DriverShipments { get; set; } = null!;
         public DbSet<Customer> Customers { get; set; } = null!;
 
+        /// <summary>
+        /// Configures the model and relationships between entities.
+        /// </summary>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            // Automatically apply configurations (if any exist)
+            // Automatically apply any IEntityTypeConfiguration<T> from this assembly
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-            // Many-to-Many: Driver ↔ Shipment
+            // -------------------------
+            // DriverShipment (many-to-many with extra fields)
+            // -------------------------
             modelBuilder.Entity<DriverShipment>()
-                .HasKey(ds => new { ds.DriverId, ds.ShipmentId });
+                .HasKey(ds => ds.DriverShipmentId); // Primary key
+
+            modelBuilder.Entity<DriverShipment>()
+                .HasIndex(ds => new { ds.DriverId, ds.ShipmentId })
+                .IsUnique(); // Ensure logical uniqueness
 
             modelBuilder.Entity<DriverShipment>()
                 .HasOne(ds => ds.Driver)
                 .WithMany(d => d.DriverShipments)
-                .HasForeignKey(ds => ds.DriverId);
+                .HasForeignKey(ds => ds.DriverId)
+                .OnDelete(DeleteBehavior.Restrict); 
 
             modelBuilder.Entity<DriverShipment>()
                 .HasOne(ds => ds.Shipment)
                 .WithMany(s => s.DriverShipments)
-                .HasForeignKey(ds => ds.ShipmentId);
+                .HasForeignKey(ds => ds.ShipmentId)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            // One-to-One: Truck → Assigned Driver (nullable)
+            // -------------------------
+            // Truck → Assigned Driver (optional one-to-many)
+            // -------------------------
             modelBuilder.Entity<Truck>()
                 .HasOne(t => t.AssignedDriver)
                 .WithMany()
                 .HasForeignKey(t => t.AssignedDriverId)
+                .IsRequired(false)
                 .OnDelete(DeleteBehavior.SetNull);
 
-            // Many-to-One: Shipment → Truck
+            // -------------------------
+            // Shipment → Truck (required many-to-one)
+            // -------------------------
             modelBuilder.Entity<Shipment>()
                 .HasOne(s => s.Truck)
                 .WithMany(t => t.Shipments)

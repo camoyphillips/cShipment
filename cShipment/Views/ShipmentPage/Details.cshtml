@@ -1,0 +1,61 @@
+﻿@model cShipment.Models.Dtos.ShipmentDto
+
+@{
+    ViewData["Title"] = "Shipment Details";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="mb-3 d-flex justify-content-start">
+    <a asp-action="Edit" asp-route-id="@Model.ShipmentId" class="btn btn-warning me-2">Edit</a>
+    <a asp-action="ConfirmDelete" asp-route-id="@Model.ShipmentId" class="btn btn-danger me-2">Delete</a>
+    <a asp-action="List" class="btn btn-secondary">Back to List</a>
+</div>
+
+<hr />
+
+<div class="row mt-4">
+    <div class="col-md-8">
+        <h4>Shipment Information</h4>
+        <dl class="row">
+            <dt class="col-sm-4">Origin</dt>
+            <dd class="col-sm-8">@Model.Origin</dd>
+
+            <dt class="col-sm-4">Destination</dt>
+            <dd class="col-sm-8">@Model.Destination</dd>
+
+            <dt class="col-sm-4">Distance</dt>
+            <dd class="col-sm-8">@Model.Distance km</dd>
+
+            <dt class="col-sm-4">Status</dt>
+            <dd class="col-sm-8">@Model.Status</dd>
+
+            <dt class="col-sm-4">Truck</dt>
+            <dd class="col-sm-8">
+                @if (Model.TruckId > 0)
+                {
+                    <text>Truck #@Model.TruckId</text>
+                }
+                else
+                {
+                    <span class="text-muted">No truck assigned</span>
+                }
+            </dd>
+        </dl>
+    </div>
+</div>

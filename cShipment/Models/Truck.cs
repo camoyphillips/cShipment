@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace cShipment.Models
 {
@@ -7,13 +9,14 @@ namespace cShipment.Models
         [Key]
         public int TruckId { get; set; }
 
-        [Required, MaxLength(100)]
+        [Required]
         public string Model { get; set; } = string.Empty;
 
-        [Range(0, double.MaxValue)]
-        public double Mileage { get; set; }
+        public int Mileage { get; set; }
 
         public DateTime LastMaintenanceDate { get; set; }
+
+        public string? TruckImagePath { get; set; }
 
         public int? AssignedDriverId { get; set; }
         public Driver? AssignedDriver { get; set; }

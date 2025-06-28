@@ -1,0 +1,34 @@
+﻿@model cShipment.Models.Dtos.TruckDto
+
+<div class="card shadow-sm border rounded mb-3" style="min-height: 150px;">
+    <div class="row g-0">
+        <div class="col-md-4 d-flex align-items-center justify-content-center p-2">
+            @if (!string.IsNullOrEmpty(Model.TruckImagePath))
+            {
+                <img src="@Model.TruckImagePath" class="img-fluid rounded" style="max-height: 120px;" alt="Truck Image">
+            }
+            else
+            {
+                <span class="text-muted">No Image Available</span>
+            }
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">@Model.Model</h5>
+                <p class="card-text">
+                    <strong>Mileage:</strong> @Model.Mileage km<br />
+                    <strong>Last Maintenance:</strong> @Model.LastMaintenanceDate.ToShortDateString()<br />
+                    @if (!string.IsNullOrEmpty(Model.AssignedDriverName))
+                    {
+                        <strong>Driver:</strong> @Model.AssignedDriverName
+                    }
+                    else
+                    {
+                        <strong>Driver:</strong> <span class="text-muted">None assigned</span>
+                    }
+                </p>
+                <a href="/TruckPage/Details/@Model.TruckId" class="btn btn-sm btn-outline-primary">View Details</a>
+            </div>
+        </div>
+    </div>
+</div>

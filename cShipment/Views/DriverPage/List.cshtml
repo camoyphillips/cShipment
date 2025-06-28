@@ -1,0 +1,33 @@
+﻿@model IEnumerable<cShipment.Models.Dtos.DriverDto>
+
+@{
+    ViewData["Title"] = "Driver List";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Driver ID</th>
+            <th>Name</th>
+            <th>License Number</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var driver in Model)
+        {
+            <tr>
+                <td>@driver.DriverId</td>
+                <td>@driver.Name</td>
+                <td>@driver.LicenseNumber</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@driver.DriverId">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="New" class="btn btn-primary">Add New Driver</a>

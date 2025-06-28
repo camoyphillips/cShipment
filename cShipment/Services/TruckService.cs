@@ -17,26 +17,35 @@ namespace cShipment.Services
 
         public async Task<IEnumerable<TruckDto>> ListTrucks()
         {
-            return await _context.Trucks.Select(t => new TruckDto
-            {
-                TruckId = t.TruckId,
-                Model = t.Model,
-                Mileage = t.Mileage,
-                LastMaintenanceDate = t.LastMaintenanceDate,
-                AssignedDriverId = t.AssignedDriverId
-            }).ToListAsync();
+            return await _context.Trucks
+                .Select(t => new TruckDto 
+                {
+                    TruckId = t.TruckId,
+                    Model = t.Model,
+                    Mileage = (int)t.Mileage,
+                    LastMaintenanceDate = t.LastMaintenanceDate,
+                    AssignedDriverId = t.AssignedDriverId, 
+                    AssignedDriverName = t.AssignedDriver != null ? t.AssignedDriver.Name : string.Empty,
+                    TruckImagePath = t.TruckImagePath 
+                })
+                .ToListAsync();
         }
 
         public async Task<TruckDto?> FindTruck(int id)
         {
-            var truck = await _context.Trucks.FindAsync(id);
+            var truck = await _context.Trucks
+                .Include(t => t.AssignedDriver)
+                .FirstOrDefaultAsync(t => t.TruckId == id);
+
             return truck == null ? null : new TruckDto
             {
                 TruckId = truck.TruckId,
                 Model = truck.Model,
-                Mileage = truck.Mileage,
+                Mileage = (int)truck.Mileage,
                 LastMaintenanceDate = truck.LastMaintenanceDate,
-                AssignedDriverId = truck.AssignedDriverId
+                AssignedDriverId = truck.AssignedDriverId, 
+                AssignedDriverName = truck.AssignedDriver != null ? truck.AssignedDriver.Name : string.Empty,
+                TruckImagePath = truck.TruckImagePath 
             };
         }
 
@@ -47,7 +56,8 @@ namespace cShipment.Services
                 Model = dto.Model ?? string.Empty,
                 Mileage = dto.Mileage,
                 LastMaintenanceDate = dto.LastMaintenanceDate,
-                AssignedDriverId = dto.AssignedDriverId
+                AssignedDriverId = dto.AssignedDriverId,
+                TruckImagePath = dto.TruckImagePath 
             };
             _context.Trucks.Add(truck);
             await _context.SaveChangesAsync();
@@ -64,6 +74,12 @@ namespace cShipment.Services
             truck.Mileage = dto.Mileage;
             truck.LastMaintenanceDate = dto.LastMaintenanceDate;
             truck.AssignedDriverId = dto.AssignedDriverId;
+       
+            if (!string.IsNullOrWhiteSpace(dto.TruckImagePath))
+            {
+                truck.TruckImagePath = dto.TruckImagePath;
+            }
+       
 
             await _context.SaveChangesAsync();
             return new ServiceResponse { Status = ServiceResponse.ServiceStatus.Updated };
@@ -89,7 +105,7 @@ namespace cShipment.Services
                     ShipmentId = s.ShipmentId,
                     Origin = s.Origin,
                     Destination = s.Destination,
-                    Distance = s.Distance,
+                    Distance = (int)s.Distance,
                     Status = s.Status,
                     TruckId = s.TruckId
                 })

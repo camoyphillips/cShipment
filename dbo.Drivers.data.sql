@@ -1,0 +1,27 @@
+﻿-- Inserting 24 driver records 
+INSERT INTO dbo.Drivers (Name, LicenseNumber)
+VALUES 
+    ('Christine', 'ABC123'),
+    ('Sean', 'DEF456'),
+    ('Camoy', 'GHI789'),
+    ('Khani', 'JKL012'),
+    ('Phillips', 'MNO345'),
+    ('Gary', 'PQR678'),
+    ('Lance', 'STU901'),
+    ('Caranetia', 'VWX234'),
+    ('Doreen', 'YZA567'),
+    ('Shamoy', 'BCD890'),
+    ('Khadoy', 'CDE321'),
+    ('Sophia', 'FGH654'),
+    ('Marvinique', 'IJK987'),
+    ('Emma', 'LMN210'),
+    ('Jacob', 'OPQ543'),
+    ('Isabella', 'RST876'),
+    ('William', 'UVW109'),
+    ('Olivia', 'XYZ432'),
+    ('James', 'ABC765'),
+    ('Ava', 'DEF098'),
+    ('Benjamin', 'GHI321'),
+    ('Mia', 'JKL654'),
+    ('Logan', 'MNO987'),
+    ('Charlotte', 'PQR210');

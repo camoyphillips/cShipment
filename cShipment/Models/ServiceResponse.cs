@@ -25,8 +25,9 @@
 
         /// <summary>
         /// The ID of the newly created entity, if applicable.
+        /// Nullable to prevent accessing uninitialized values.
         /// </summary>
-        public int CreatedId { get; set; }
+        public int? CreatedId { get; set; }
 
         /// <summary>
         /// Any logic or validation messages returned by the service.
