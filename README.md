@@ -1,209 +1,129 @@
-#  cShipment – Logistics Management System
+#  cShipment: Transport Logistics Management System
 
-**cShipment** is a transport logistics management web application built with **ASP.NET Core MVC** and **Entity Framework Core**. It helps logistics companies manage **shipments, trucks, and drivers** with full **CRUD functionality**, assignment workflows, and smart relational views.
+**cShipment** is a robust and scalable web application built with **ASP.NET Core MVC** and **Entity Framework Core**, designed to streamline logistics operations. It provides comprehensive **CRUD functionality** for managing **shipments, trucks, and drivers**, offering intelligent relational views and assignment workflows to optimize transport efficiency.
+
+Developed as a passion project for HTTP5226 by **Camoy Phillips**, cShipment emphasizes best practices, a scalable service architecture, and a clean user interface.
+
+---
+
+## Core Features
+
+cShipment provides a complete suite of tools for managing your logistics operations, from basic record keeping to complex assignments.
+
+### Shipment & Resource Management (CRUD)
+
+- **Shipments**: Create, view, update, and delete shipment records, including details like origin, destination, distance, and current status.
+- **Trucks**: Track truck model, mileage, and last maintenance date. Supports **image uploads** for visual identification.
+- **Drivers**: Manage driver profiles, license information, and truck assignment.
+
+### Intelligent Relational Workflows
+
+- **Driver Assignments**: Assign multiple drivers to a single shipment, each with a role (e.g., "Lead", "Backup").
+- **Integrated Views**: View assigned truck and driver details directly inside shipment and truck details pages.
+- **Cost Planning**: Structure in place to calculate shipment costs based on distance and fuel logic.
+
+### Robust & User-Friendly Design
+
+- **Validation & Feedback**: Clean Razor forms with full validation via `ModelState`. Success/error messages are shown using `TempData`.
+- **Relational ViewModels**: Custom ViewModels (`ShipmentDetails`, `TruckDetails`) combine DTOs with assigned entities for better frontend rendering.
+- **Graceful Fallbacks**: Invalid or missing IDs are caught and redirected to safe views with error feedback.
 
 ---
 
 ## Tech Stack
 
 - **Frontend**: Razor Pages (ASP.NET Core MVC)
-- **Backend**: ASP.NET Core Web App
-- **Database**: SQL Server (Entity Framework Core)
-- **ORM**: EF Core (Code-First Migrations)
+- **Backend**: ASP.NET Core Web API
+- **ORM**: Entity Framework Core (Code-First Migrations)
+- **Database**: SQL Server
 - **Languages**: C#, HTML, Bootstrap, LINQ
-- **Hosting**: Local IIS Express or Kestrel
+- **Hosting**: Kestrel / IIS Express
 - **Tools**: Visual Studio 2022, SSMS
-
----
-
-## Features
-
-### Core CRUD Functionality
-
-- **Shipments**: Create, View, Update, and Delete shipment records with distance, origin, and status fields.
-- **Trucks**: Track truck model, mileage, last maintenance date, and optionally upload an image.
-- **Drivers**: Manage driver records, license numbers, and truck assignments.
-
-### Relational Features
-
-- Assign **drivers to shipments** with role tags (e.g. “Lead”, “Backup”)
-- Display **assigned truck and driver details** inside shipment and truck views.
-- Use view models like `ShipmentDetails` and `TruckDetails` to display joined data.
-
-### File Upload
-
-- Admins can upload truck images during creation or update.
-- Uploaded files are saved to `/wwwroot/uploads/trucks/`.
-
-### Error Handling & Validation
-
-- Full validation with ModelState in forms.
-- Uses `TempData` to flash success/error messages.
-- View fallbacks and graceful redirects for missing IDs.
-
-
-### Prerequisites
-
-- [.NET 8 SDK]
-- [SQL Server or SQL Express]
-- Visual Studio 2022 or newer
-
-###  Running the Project
-
-1. **Clone the repo**:
-    ```bash
-    git clone https://github.com/camoyphillips/cShipment.git
-    cd cShipment
-    ```
-
-2. **Set up the database**:
-    - In `appsettings.json`, set your SQL Server connection string.
-    - Run migrations and seed data:
-      ```bash
-      dotnet ef database update
-      ```
-
-3. **Run the app**:
-    ```bash
-    dotnet run
-    ```
-
-4. Open in browser at:  
-   `https://localhost:xxxx/ShipmentPage/List`
-
-# cShipment
-
-**Transport Truck Logistics Management System**
-
----
-
-## Project Overview
-
-**cShipment** is a Minimum Viable Product (MVP) for a logistics company management system designed to handle core operations including managing trucks, drivers, and shipments. The system empowers administrators to efficiently assign trucks and drivers and calculate shipment costs.
-
-Built for HTTP5226 as a Passion Project by **Camoy Phillips**, this solution follows best practices, scalable service architecture, and clean user interface wireframes.
-
----
-
-## Core Features (MVP)
-
-### Admin Functions
-- Assign drivers and trucks to shipments
-- View and update shipment, truck, and driver details
-- Calculate shipment costs based on distance and fuel logic
-
-### Entities & Relationships
-- **Drivers ↔ Shipments** (Many-to-Many)
-- **Trucks ↔ Shipments** (One-to-Many)
-- **Drivers ↔ Trucks** (One-to-One)
 
 ---
 
 ## RESTful API Endpoints
 
-| Method | Route                          | Description                        |
-|--------|--------------------------------|------------------------------------|
-| GET    | `/api/drivers`                | List all drivers                   |
-| GET    | `/api/trucks`                 | List all trucks                    |
-| GET    | `/api/shipments`              | List all shipments                 |
-| GET    | `/api/shipments/driver/{id}`  | Get shipments assigned to driver   |
-| POST   | `/api/drivers`                | Add a new driver                   |
-| POST   | `/api/trucks`                 | Add a new truck                    |
-| POST   | `/api/shipments`              | Add a new shipment                 |
-| POST   | `/api/assignments`            | Assign a driver to a shipment      |
-| PUT    | `/api/drivers/{id}`           | Update driver details              |
-| PUT    | `/api/trucks/{id}`            | Update truck details               |
-| PUT    | `/api/shipments/{id}`         | Update shipment details            |
-| DELETE | `/api/drivers/{id}`           | Delete a driver                    |
-| DELETE | `/api/trucks/{id}`            | Delete a truck                     |
-| DELETE | `/api/shipments/{id}`         | Delete a shipment                  |
+| Method  | Route                                | Description                              |
+|---------|--------------------------------------|------------------------------------------|
+| GET     | `/api/drivers`                       | List all drivers                         |
+| GET     | `/api/trucks`                        | List all trucks                          |
+| GET     | `/api/shipments`                     | List all shipments                       |
+| GET     | `/api/shipments/driver/{id}`         | List shipments for a specific driver     |
+| POST    | `/api/drivers`                       | Create a new driver                      |
+| POST    | `/api/trucks`                        | Create a new truck                       |
+| POST    | `/api/shipments`                     | Create a new shipment                    |
+| POST    | `/api/assignments`                   | Assign a driver to a shipment            |
+| PUT     | `/api/drivers/{id}`                  | Update driver                            |
+| PUT     | `/api/trucks/{id}`                   | Update truck                             |
+| PUT     | `/api/shipments/{id}`                | Update shipment                          |
+| DELETE  | `/api/drivers/{id}`                  | Delete driver                            |
+| DELETE  | `/api/trucks/{id}`                   | Delete truck                             |
+| DELETE  | `/api/shipments/{id}`                | Delete shipment                          |
 
 ---
 
-## Architecture
+## Architecture & Structure
 
-- **Backend:** ASP.NET Core Web API  
-- **Database:** SQL Server with Entity Framework Core  
-- **Authentication:** ASP.NET Identity  
-- **Frontend (MVP Wireframes):** Razor Views
-
-### Service Layer
-- `DriverService`, `TruckService`, `ShipmentService`, `CustomerService`, `DriverShipmentService`
-
-Each service handles logic independently for separation of concerns and maintainability.
-
----
-
-## UI Wireframes (From My Passion Project)
-
-- **Update Shipment Form:** Assign truck & driver  
-- **Update Truck Form:** View driver, and shipments  
-- **Update Driver Form:** Assign to truck and view shipment history  
-
-> Wireframes prioritize usability and reflect all core relationships from the ERD.
-
----
-
-## Future Enhancements (Post-MVP)
-
--  Driver mobile app  
--  Google Maps integration for route tracking  
--  PDF export for logs  
--  Role-based access (admin vs driver)  
--  Fuel-price-aware shipment cost estimator  
--  Proof of delivery upload  
-
----
-
-## Folder Structure 
 
 cShipment/
-│
-├── Controllers/
-│ ├── ShipmentPageController.cs
-│ └── TruckPageController.cs
-│
+├── Controllers/ # MVC Page Controllers + API Controllers
+├── Interfaces/ # Service contracts (e.g., IShipmentService)
 ├── Models/
-│ ├── Shipment.cs, Truck.cs, Driver.cs
-│ └── Dtos/ (flattened models)
-│ └── ViewModels/ (for relational views)
-│
-├── Views/
-│ └── ShipmentPage/
-│ ├── List.cshtml, Details.cshtml, Edit.cshtml, ConfirmDelete.cshtml
-│
-├── Services/
-│ └── ShipmentService.cs, TruckService.cs, 
-│
-├── Data/
-│ └── ApplicationDbContext.cs
+│ ├── Entities/ # Domain models: Shipment.cs, Truck.cs, Driver.cs
+│ ├── Dtos/ # Flat data models for API/View binding
+│ └── ViewModels/ # Complex models for relational views (e.g., ShipmentDetails)
+├── Services/ # Business logic (e.g., ShipmentService, TruckService)
+├── Data/ # ApplicationDbContext + EF Migrations
+├── Views/ # Razor views for CRUD + details pages
+├── wwwroot/ # Static assets (CSS, JS, uploads/)
+├── appsettings.json # Configuration and connection string
+└── Program.cs # Entry point and DI configuration
+
 
 ---
 
-## What I Learned
+## Getting Started
 
-- EF Core navigation & projection
-- Async data access and separation of concerns with services
-- ViewModel composition for clean Razor rendering
-- Debugging model mismatches and null-safe LINQ
+### Prerequisites
 
----
+- [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
+- SQL Server (LocalDB or Express)
+- Visual Studio 2022 or newer
 
-## Project Status
+### Setup Instructions
 
- MVP completed  
- Future additions:
-- Role-based login for dispatchers vs admins  
-- Mobile UI using .NET MAUI or React Native  
+```bash
+# 1. Clone the project
+git clone https://github.com/camoyphillips/cShipment.git
+cd cShipment
 
----
+# 2. Set up your DB in appsettings.json, then run:
+dotnet ef database update
 
-├── Controllers/ # API + MVC Controllers
-├── Interfaces/ # Service interfaces (IDriverService)
-├── Models/ # Entity and DTO classes
-├── Services/ # Business logic layer
-├── Data/ # ApplicationDbContext
-├── Views/ # Razor Views (Privacy, Index)
-├── wwwroot/ # Static files
-├── appsettings.json # Configurations
-└── Program.cs # Main entry point
+# 3. Run the application
+dotnet run
+
+
+Visit the site at:
+https://localhost:PORT/ShipmentPage/List
+________________________________________
+What I Learned
+•	How to build async, testable service layers with dependency injection
+•	How to use EF Core navigation properties and projections
+•	How to manage many-to-many relationships and build relational Razor views
+
+________________________________________
+Future
+•	Role-based access control (Admin, Driver, Dispatcher)
+•	Mobile app (React Native or .NET MAUI)
+•	Google Maps integration for shipment routes
+•	PDF export for shipment summaries
+•	 Proof of delivery image uploads
+•	Cost calculator with fuel API integration
+________________________________________
+Project Status
+MVP complete — all CRUD, assignment, image uploads, and view models in place.
+Ready for extensions like mobile UI, delivery proof, and real-time updates.
+________________________________________
+
